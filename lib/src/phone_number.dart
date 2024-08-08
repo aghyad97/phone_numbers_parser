@@ -1,3 +1,4 @@
+import 'package:phone_numbers_parser/metadata.dart';
 import 'package:phone_numbers_parser/src/formatting/phone_number_formatter.dart';
 import 'package:phone_numbers_parser/src/range/phone_number_range.dart';
 import 'package:phone_numbers_parser/src/validation/phone_number_type.dart';
@@ -62,6 +63,18 @@ class PhoneNumber {
         callerCountry: callerCountry,
         destinationCountry: destinationCountry,
       );
+
+  static String? getPhoneNumberExampleByIsoCode(
+    String countryCode,
+  ) {
+    final isoCode = isoCodeConversionMap[countryCode];
+    if (isoCode == null) {
+      return null;
+    }
+
+    final examples = metadataExamplesByIsoCode[isoCode]!;
+    return examples.mobile;
+  }
 
   /// formats the nsn, if no [isoCode] is provided the phone number region is used.
   String formatNsn({IsoCode? isoCode}) =>
